@@ -1,0 +1,19 @@
+.worktrees/
+
+# Build artifacts and installers (built via build-installer.ps1, distributed via Releases)
+dist/
+
+# Extracted/modified ZCode app bundles — large, official copyrighted material
+*.asar
+zcode-app-src/
+zcode-build/
+
+# Scratch copy of the payload at repo root (canonical copy: zcode-patcher/payload/)
+/model-discovery.js
+
+# Node runtime state
+node_modules/
+state.json
+logs/
+backups/
+pending/

@@ -1,0 +1,6 @@
+{
+  "patchVersion": "2.0.0",
+  "asarVersion": "4.3.0",
+  "payload": "payload/model-discovery.js",
+  "payloadSha256": "07E429555F6E8D2B5A58B944AF99B0B111BB927C44354745CDCFB238B23D907D"
+}

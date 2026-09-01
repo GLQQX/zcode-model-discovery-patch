@@ -1,0 +1,9 @@
+{
+  "name": "zcode-model-discovery-patcher",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@electron/asar": "4.3.0"
+  }
+}
