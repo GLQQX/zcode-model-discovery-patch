@@ -29,7 +29,7 @@ ZCode 官方自动更新替换 `app.asar` 后，补丁器会在下次登录时�
 node.exe apply-patch.mjs --restore --json
 
 # 2. 删除计划任务与补丁器运行时（保留备份和日志）
-powershell -NoProfile -ExecutionPolicy Bypass -File uninstall.ps1
+node.exe install.mjs uninstall
 ```
 
 ## 安全设计
@@ -44,18 +44,15 @@ powershell -NoProfile -ExecutionPolicy Bypass -File uninstall.ps1
 ```powershell
 cd zcode-patcher
 npm ci
-powershell -NoProfile -ExecutionPolicy Bypass -File build-installer.ps1
+node build-installer.mjs
 # 产物: dist/ZCodeModelDiscoveryPatch-Setup.exe
 ```
 
 运行测试：
 
 ```powershell
-# 补丁器单元测试
-node --test test/
-
-# 安装/卸载脚本隔离测试
-powershell -NoProfile -ExecutionPolicy Bypass -File test/install-script.test.ps1
+# 全部测试（补丁器 + zip + 安装/卸载/计划任务）
+node --test test/apply-patch.test.mjs test/state.test.mjs test/transform.test.mjs test/install.mjs.test.mjs test/zip-escape.test.mjs
 ```
 
 ## 仓库结构
@@ -66,7 +63,8 @@ zcode-patcher/
   lib/transform.mjs      # 渲染器/主进程 bundle 的确定性变换
   lib/state.mjs          # 状态文件与路径安全
   payload/model-discovery.js  # 注入的模型发现实现（版本化）
-  install.ps1 / setup.ps1 / build-installer.ps1 / uninstall.ps1
+  install.mjs            # 安装 / 卸载 / 计划任务 / 自解压入口
+  build-installer.mjs    # 单文件安装器构建（IExpress + 自写 zip）
 docs/superpowers/        # 设计文档与实施计划
 zcode-tests/             # 模型发现逻辑测试
 ```
