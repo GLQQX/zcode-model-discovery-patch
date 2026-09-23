@@ -26,6 +26,17 @@ test("normalizes OpenRouter model metadata including context and image input", a
   }]);
 });
 
+test("accepts providers that return modelId instead of id", async () => {
+  const models = await discoverProviderModels({
+    baseURL: "https://provider.example/v1",
+    fetchImpl: async () => new Response(JSON.stringify({
+      data: [{ modelId: "vendor/model-id-only" }],
+    }), { status: 200 }),
+  });
+
+  assert.equal(models[0].id, "vendor/model-id-only");
+});
+
 test("enriches an ID-only aliased model from a unique models.dev basename match", async () => {
   const requests = [];
   const models = await discoverProviderModels({

@@ -1,5 +1,7 @@
 # ZCode Model Discovery Patch
 
+Current patch version: `2.3.3`.
+
 给 [ZCode](https://z.ai)（Windows 桌面版）添加「拉取模型」功能的补丁器。
 
 在 ZCode 的模型供应商设置中填好 Base URL 和 API Key 后，可一键从供应商的 OpenAI-compatible `/v1/models` 接口拉取模型列表，自动填入模型配置，并补全元数据：
@@ -51,8 +53,8 @@ node build-installer.mjs
 运行测试：
 
 ```powershell
-# 全部测试（补丁器 + zip + 安装/卸载/计划任务）
-node --test test/apply-patch.test.mjs test/state.test.mjs test/transform.test.mjs test/install.mjs.test.mjs test/zip-escape.test.mjs
+# 补丁器和模型发现逻辑测试；官方 bundle 集成测试在 fixture 存在时自动启用
+node --test test/*.test.mjs ../zcode-tests/*.test.mjs
 ```
 
 ## 仓库结构

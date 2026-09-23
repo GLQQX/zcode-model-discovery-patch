@@ -36,7 +36,7 @@ function valuesFor(payload) {
 }
 
 function modelId(model) {
-  const value = model.id ?? model.name ?? model.model;
+  const value = model.id ?? model.modelId ?? model.name ?? model.model;
   return typeof value === "string" ? value.trim() : "";
 }
 

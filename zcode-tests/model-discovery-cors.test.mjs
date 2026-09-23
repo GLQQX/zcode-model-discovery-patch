@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const mainPath = new URL("../zcode-app-src/out/main/index.js", import.meta.url);
 
-test("main process enables CORS only for model discovery requests", async () => {
+test("main process enables CORS only for model discovery requests", {
+  skip: await access(new URL("../zcode-app-src/out/main/index.js", import.meta.url)).then(() => false).catch(() => "official ZCode fixture is not present"),
+}, async () => {
   const main = await readFile(mainPath, "utf8");
   const handlerStart = main.indexOf("defaultSession.webRequest.onHeadersReceived");
 

@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const bundlePath = new URL("../zcode-app-src/out/renderer/assets/styles-ubFRashM.js", import.meta.url);
 
-test("custom provider editor exposes model discovery and persists the discovered models", async () => {
+test("custom provider editor exposes model discovery and persists the discovered models", {
+  skip: await access(new URL("../zcode-app-src/out/renderer/assets/styles-ubFRashM.js", import.meta.url)).then(() => false).catch(() => "official ZCode fixture is not present"),
+}, async () => {
   const bundle = await readFile(bundlePath, "utf8");
   const editorStart = bundle.indexOf("function l5(");
   const editorEnd = bundle.indexOf("function CNt()", editorStart);
